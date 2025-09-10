@@ -1,0 +1,330 @@
+<html>
+<head>
+  <title>Login</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}?v=1">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #b74b4b, #f08484);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: "Century Gothic";
+      color: black;
+      font-size: 3em;
+      margin-bottom: 20px;
+      letter-spacing: 0.00em;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #fff;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    p span {
+      background-color: #fff;
+      padding: 0 10px;
+      color: #b74b4b;
+    }
+
+    .input-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 15px 45px 15px 15px;
+      margin-top: 15px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: all 0.3s ease;
+      background-color: #f9f9f9;
+    }
+
+    .input-box i {
+      position: absolute;
+      right: 15px;
+      top: 60%;      /* Lower the icon slightly */
+      transform: translateY(-50%);
+      color: #b74b4b;
+      font-size: 1.5em;  /* Make the icon bigger */
+    }
+
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      font-size: 1em;
+      border-radius: 5px;
+      background-color: #b74b4b;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    }
+
+
+    .circle-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .login-container {
+      background-color: #fff;
+      width: 100%;
+      max-width: 600px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #sign-up, #submit, #create-acct-btn {
+      background-color: #b74b4b;
+      color: white;
+      font-weight: 600;
+      font-size: 120%;
+    }
+
+    #return-btn {
+      background: none;
+      color: #b74b4b;
+      text-decoration: underline;
+      border: none;
+      margin-top: 15px;
+      font-size: 0.9em;
+      cursor: pointer;
+      font-size: 140%;
+    }
+
+    #return-btn:hover {
+      color: #8c3a3a;
+    }
+
+    #create-acct {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        padding: 20px;
+        width: 80%;
+      }
+
+      h1 {
+        font-size: 2.5em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+  </style>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon1.png') }}">
+</head>
+
+<body>
+  <div class="login-container">
+    <div id="main">
+      <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="Logo" class="circle-img">
+      <h1>Welcome To</h1>
+      <h1 style="font-family: Elephant; font-size: 36px; color: black;">My Next Move</h1>
+      
+      <div class="input-box">
+        <input id="email" type="text" placeholder="Email">
+        <i class='bx bxs-envelope'></i>
+      </div>
+      
+      <div class="input-box">
+        <input id="password" type="password" placeholder="Password">
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+
+      <button id="submit" style="font-family: Trebuchet MS;">Submit</button>
+      <button id="google-login-btn">Log in with Google</button>
+
+      <p><span>or</span></p>
+      <button id="sign-up" style="font-family: Trebuchet MS;">Sign Up</button>
+    </div>
+
+    <div id="create-acct">
+      <h1>Create an Account</h1>
+      <div class="input-box">
+        <input id="email-signup" type="text" placeholder="Email *">
+        <i class='bx bxs-envelope'></i>
+      </div>
+      
+      <div class="input-box">
+        <input id="confirm-email-signup" type="email" placeholder="Confirm Email *">
+        <i class='bx bxs-envelope'></i>
+      </div>
+
+      <div class="input-box">
+        <input id="password-signup" type="password" placeholder="Password *">
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+
+      <div class="input-box">
+        <input id="confirm-password-signup" type="password" placeholder="Confirm Password *">
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+
+      <button id="create-acct-btn">Create Account</button>
+      <button id="return-btn">Return to Login</button>
+    </div>
+  </div>
+  <script type="module">
+    // Import necessary Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyDVwaaWAQAhe2VlZ_A4_xGggycKDmjD7sg",
+  authDomain: "project-a71f1.firebaseapp.com",
+  projectId: "project-a71f1",
+  storageBucket: "project-a71f1.firebasestorage.app",
+  messagingSenderId: "663148811400",
+  appId: "1:663148811400:web:4d18cd4b54334df6e37b3d",
+  measurementId: "G-7Y0JJ6EZE3"
+};
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // DOM Elements
+    const submitButton = document.getElementById("submit");
+    const signupButton = document.getElementById("sign-up");
+    const googleLoginButton = document.getElementById("google-login-btn"); // New Google login button
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const main = document.getElementById("main");
+    const createacct = document.getElementById("create-acct");
+
+    const signupEmailIn = document.getElementById("email-signup");
+    const confirmSignupEmailIn = document.getElementById("confirm-email-signup");
+    const signupPasswordIn = document.getElementById("password-signup");
+    const confirmSignUpPasswordIn = document.getElementById("confirm-password-signup");
+    const createacctbtn = document.getElementById("create-acct-btn");
+    const returnBtn = document.getElementById("return-btn");
+
+    // Variables for storing user inputs
+    let email, password, signupEmail, signupPassword, confirmSignupEmail, confirmSignUpPassword;
+
+    // Create account with email/password
+    createacctbtn.addEventListener("click", function () {
+      let isVerified = true;
+
+      signupEmail = signupEmailIn.value;
+      confirmSignupEmail = confirmSignupEmailIn.value;
+      if (signupEmail !== confirmSignupEmail) {
+        window.alert("Email fields do not match. Try again.");
+        isVerified = false;
+      }
+
+      signupPassword = signupPasswordIn.value;
+      confirmSignUpPassword = confirmSignUpPasswordIn.value;
+      if (signupPassword !== confirmSignUpPassword) {
+        window.alert("Password fields do not match. Try again.");
+        isVerified = false;
+      }
+
+      if (!signupEmail || !confirmSignupEmail || !signupPassword || !confirmSignUpPassword) {
+        window.alert("Please fill out all required fields.");
+        isVerified = false;
+      }
+
+      if (isVerified) {
+        createUserWithEmailAndPassword(auth, signupEmail, signupPassword)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            window.alert("Success! Account created.");
+          })
+          .catch((error) => {
+            window.alert(`Error: ${error.message}`);
+          });
+      }
+    });
+
+    // Sign in with email/password
+    submitButton.addEventListener("click", function () {
+      email = emailInput.value;
+      password = passwordInput.value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(`Login ID: ${email}`);
+          window.alert(`Welcome! Email: ${email}`);
+          window.location.href = "/home"; // Redirect to welcome page
+        })
+        .catch((error) => {
+          window.alert(`Error: ${error.message}`);
+        });
+    });
+
+    // Toggle between login and signup forms
+    signupButton.addEventListener("click", function () {
+      main.style.display = "none";
+      createacct.style.display = "block";
+    });
+
+    returnBtn.addEventListener("click", function () {
+      main.style.display = "block";
+      createacct.style.display = "none";
+    });
+
+    // Google Sign-In Integration
+    googleLoginButton.addEventListener("click", function () {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          console.log("Google User Info:", user);
+          window.alert(`Welcome ${user.displayName}`);
+          window.location.href = "/home";
+
+        })
+        .catch((error) => {
+          window.alert(`Error: ${error.message}`);
+        });
+    });
+  </script>
+  
+</body>
+  
+</html>

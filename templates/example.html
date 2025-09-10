@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Next Move</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}?v=1">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            font-size: 62.5%;overflow: hidden;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh; /* Make sure the body height is limited to the viewport height */
+        
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;overflow: hidden;
+        }
+
+        section {
+            height: 100vh;
+            padding: 10rem 9% 5rem; /* Increased padding */
+            margin-top: 120px; /* Keep your original margin-top */
+            overflow: hidden;
+        }
+
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #161616;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            display: block; /* Ensure footer is always visible */
+            z-index: 100;
+        }
+
+
+        footer p {
+            font-size: 1.4rem;
+        }
+
+        /* Basic style for header and content */
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            margin-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: transparent;
+            filter: drop-shadow(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: #df3838;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        nav a {
+            font-size: 240%;
+            color: white;
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #df3838;
+            border-bottom: 3px solid #df3838;
+        }
+
+       
+
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8rem;
+            background-color: black;
+        }
+
+        .google-form-section iframe {
+            width: 100%;
+            height: 850px;
+            border: none;
+            margin-top: -35px;
+        }
+        @media(max-width:995px) {
+            .google-form-section iframe {
+                height: 600px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #161616;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 1.4rem;
+        }
+        .harsha {
+
+            color: #fff;
+              text-decoration: none;
+              margin: 0 20px;
+              font-size: 240%;
+              font-family: 'Poppins', sans-serif;
+              font-weight: 600;
+              padding: 15px 25px;
+              border-radius: 14px;
+              background-color: #5A5A5A;
+             margin-bottom: 10px;
+              transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            }
+        .harsha:hover {
+            background-color: #b22222;
+              color: #fff;
+              transform: scale(1.2);
+              box-shadow: 0 10px 30px rgba(178, 34, 34, 0.8);
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon1.png') }}">
+</head>
+
+<body>
+         <!-- ===== HEADER FROM HOMEPAGE (EXACT COPY) ===== -->
+    <header id="header">
+        <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="Logo"
+            style="width: 290px; height: 160px; border-radius: 50%; margin-left: -160px;">
+
+        <a href="#" class="logo" style="font-size: 400%; margin-left: -80px;">My Next Move</a>
+
+        <nav>
+            <!-- The href links are unchanged, as requested -->
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('ai') }}">CareerGuide AI</a>
+            <a href="https://harshacodes2209.github.io/jobspage/">Prepare Yourself</a>
+            <a href="{{ url_for('resume') }}">Your Resume</a>
+            <a href="{{ url_for('inspire') }}">Success Stories</a>
+            <a href="{{ url_for('feedback') }}" class="active">Feedbacks</a>
+            <a href="{{ url_for('index') }}" class="harsha">← Log Out</a>
+        </nav>
+    </header>
+    <section class="google-form-section">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf5rnBYKfhtSvadnox4rAMR_nx1ngsNl_A_N7N79hEu4nlgkQ/viewform?usp=sf_link" 
+                width="100%" 
+                height="800px" 
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0">
+            Loading…
+        </iframe>
+    </section>
+
+ 
+
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.getElementById("header");
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+
+        window.addEventListener('scroll', function () {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop) {
+                footer.style.display = 'none';
+            } else {
+                footer.style.display = 'block';
+            }
+
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+    </script>
+
+</body>
+
+</html> 

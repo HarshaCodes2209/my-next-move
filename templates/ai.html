@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerGuide AI</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}?v=1">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+
+    body {
+      background-color: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+
+
+    h1 {
+      color: #df3838;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+
+    .chat-container {
+      width: 90%;
+      max-width: 800px;
+      background-color: #111;
+      border: 2px solid #df3838;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 25px rgba(223, 56, 56, 0.3);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+
+
+    .chat-history {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+
+
+    .chat-bubble {
+      padding: 12px 18px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+      font-size: 1.4rem;
+      line-height: 1.6;
+    }
+
+
+    .user {
+      background-color: #df3838;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+
+    .bot {
+      background-color: #222;
+      border: 1px solid #df3838;
+      color: #df3838;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+    }
+
+
+    textarea {
+      flex: 1;
+      height: 60px;
+      background-color: #0d0d0d;
+      color: white;
+      border: 2px solid #df3838;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1.2rem;
+      resize: none;
+    }
+
+
+    button {
+      background-color: #df3838;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+
+    button:hover {
+      background-color: #b22222;
+      transform: scale(1.05);
+    }
+
+
+
+    .typing {
+      display: inline-block;
+      border-right: 2px solid #b22222;
+      animation: blink 0.7s steps(1) infinite;
+      font-size: 1.2rem;
+      color: #b22222;
+      margin-left: 5px;
+    }
+.extra-bold {
+  font-weight: 900;       /* very bold */
+  color: #b22222;         /* bright green to stand out */
+  text-shadow: 0 0 3px #b22222, 0 0 6px #b22222; /* glowing effect */
+}
+.logo {
+  width: 50px;              /* fits nicely in top bar */
+  height: 50px;
+  border: 2px solid #b22222; /* thin green outline */
+  border-radius: 50%;        /* circular logo */
+  vertical-align: middle;
+  margin-right: 12px;        /* space between logo and text */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1); 
+  box-shadow: 0 0 15px #b22222; /* glowing green shadow */
+}
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+  </style>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon1.png') }}">
+</head>
+<body>
+  <!-- Top bar with back button and title -->
+  <div class="top-bar">
+    
+    <h1>
+  CareerGuide AI
+</h1>
+
+    <div style="width:70px"></div> <!-- Spacer to keep title centered -->
+  </div>
+
+  <div class="chat-container">
+    <div class="chat-history" id="chat-history"></div>
+    <div class="input-area">
+      <textarea id="user-input" placeholder="Tell your interests and hobbies to get personalized answers..."></textarea>
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+<script>
+  const chatHistory = document.getElementById('chat-history');
+  const userInput = document.getElementById('user-input');
+
+  function appendMessage(content, sender) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('chat-bubble', sender);
+
+if(sender === 'bot') {
+  // Replace **text** with <strong class="extra-bold">text</strong>
+  content = content.replace(/\*\*(.*?)\*\*/g, '<strong class="extra-bold">$1</strong>');
+  bubble.innerHTML = content;
+} else {
+      bubble.innerText = content;
+    }
+
+    chatHistory.appendChild(bubble);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+
+  function showTyping() {
+    const typingBubble = document.createElement('div');
+    typingBubble.classList.add('chat-bubble', 'bot');
+    typingBubble.id = 'typing';
+    typingBubble.innerHTML = 'Typing<span class="typing">...</span>';
+    chatHistory.appendChild(typingBubble);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+
+  function removeTyping() {
+    const typing = document.getElementById('typing');
+    if (typing) typing.remove();
+  }
+
+  async function sendMessage() {
+    const input = userInput.value.trim();
+    if (!input) return;
+
+    appendMessage(input, 'user');
+    userInput.value = '';
+    showTyping();
+
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: input })
+      });
+
+      const data = await res.json();
+      removeTyping();
+      appendMessage(data.response, 'bot');
+    } catch (err) {
+      removeTyping();
+      appendMessage('⚠️ Something went wrong. Please try again!', 'bot');
+    }
+  }
+
+  userInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+</script>
+
+</body>
+</html>

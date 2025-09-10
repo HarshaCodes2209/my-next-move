@@ -1,0 +1,6 @@
+flask
+gunicorn
+langchain
+langchain-core
+langchain-groq
+reportlab

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - My Next Move</title>
+    <!-- The favicon link from your original resume page -->
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}?v=1">
+
+    
+    <style>
+        /* ===== EXACT STYLES FROM YOUR HOMEPAGE (COPIED) ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: black;
+            color: white;
+            padding-top: 180px; /* Added padding to prevent content hiding behind fixed header */
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: black; /* Set a solid background for resume page */
+            filter: drop-shadow(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: #df3838;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        nav a {
+            font-size: 240%; /* EXACTLY from your homepage CSS */
+            color: white;
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #df3838;
+            border-bottom: 3px solid #df3838;
+        }
+
+        .harsha {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 240%; /* EXACTLY from your homepage CSS */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            padding: 15px 25px;
+            border-radius: 14px;
+            background-color: #5A5A5A;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .harsha:hover {
+            background-color: #b22222;
+            color: #fff;
+            transform: scale(1.2);
+            box-shadow: 0 10px 30px rgba(178, 34, 34, 0.8);
+        }
+
+        /* Responsive styles for nav from homepage */
+        @media(max-width:995px) {
+            nav {
+                position: absolute;
+                display: none;
+                top: 0;
+                right: 0;
+                width: 40%;
+                border-left: 3px solid #df3838;
+                border-bottom: 3px solid #df3838;
+                border-bottom-left-radius: 2rem;
+                padding: 1rem solid;
+                background-color: #161616;
+                border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav a {
+                display: block;
+                font-size: 2rem;
+                margin: 3rem 0;
+            }
+
+            nav a:hover,
+            nav a.active {
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border-bottom: 0.5rem solid #df3838;
+            }
+        }
+        
+        /* ===== ORIGINAL RESUME BUILDER STYLES (ADAPTED FOR DARK THEME) ===== */
+        .container {
+            max-width: 800px;
+            margin: 2em auto;
+            background: #1f1f1f;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(223, 56, 56, 0.4); /* Added red glow */
+            border: 1px solid #df3838;
+        }
+
+        .container h1 {
+            color: #df3838;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        .container h2 {
+            font-size: 2.5rem;
+            text-align: left;
+            border-bottom: 1px solid #555;
+            padding-bottom: 0.5em;
+            color: #f4f4f9;
+            margin-top: 1em;
+        }
+        
+        label {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            color: #f4f4f9;
+            font-size: 1.6rem;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.8em;
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 1em;
+            background-color: #df3838;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            margin-top: 2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #b22222;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER FROM HOMEPAGE (EXACT COPY) ===== -->
+    <header id="header">
+        <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="Logo"
+            style="width: 290px; height: 160px; border-radius: 50%; margin-left: -160px;">
+
+        <a href="#" class="logo" style="font-size: 400%; margin-left: -80px;">My Next Move</a>
+
+        <nav>
+            <!-- The href links are unchanged, as requested -->
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('ai') }}">CareerGuide AI</a>
+            <a href="https://harshacodes2209.github.io/jobspage/">Prepare Yourself</a>
+            <a href="{{ url_for('resume') }}" class="active">Your Resume</a>
+            <a href="{{ url_for('inspire') }}">Success Stories</a>
+            <a href="{{ url_for('feedback') }}">Feedbacks</a>
+            <a href="{{ url_for('index') }}" class="harsha">← Log Out</a>
+        </nav>
+    </header>
+
+    <!-- ===== RESUME BUILDER CONTENT (FROM YOUR ORIGINAL RESUME PAGE) ===== -->
+    <div class="container">
+        <h1>Create Your Professional Resume</h1>
+
+        <form action="/generate_resume" method="POST">
+
+            <h2>Personal Information</h2>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="linkedin">LinkedIn Profile URL (Optional)</label>
+            <input type="text" id="linkedin" name="linkedin">
+
+            <h2>Content</h2>
+            <label for="skills">Skills (add each skill with a '•' prefix, one per line)</label>
+            <textarea id="skills" name="skills" placeholder="e.g.,&#10;• Programming Languages: Python, Java, C++&#10;• Web Technologies: HTML, CSS, JavaScript"></textarea>
+
+            <label for="experience">Work Experience (add each entry with a '•' prefix, one per line)</label>
+            <textarea id="experience" name="experience" placeholder="e.g.,&#10;**Senior Software Engineer** | XYZ Tech | 2020 - Present&#10;• Led the development of a new microservices-based architecture..."></textarea>
+
+            <label for="education">Education</label>
+            <textarea id="education" name="education" placeholder="e.g.,&#10;**B.Sc. in Computer Science** | University of Example | 2014 - 2018"></textarea>
+
+            <label for="achievements">Achievements (add each achievement with a '•' prefix, one per line)</label>
+            <textarea id="achievements" name="achievements" placeholder="e.g.,&#10;• Received the 'Employee of the Year' award..."></textarea>
+
+            <button type="submit">Generate PDF Resume</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

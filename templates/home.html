@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <title>My Next Move</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}?v=1">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #161616;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            display: none;
+            z-index: 100;
+        }
+
+        footer p {
+            font-size: 1.4rem;
+        }
+        .home {
+            padding: 20px;
+        }
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .home-img img {
+            width: 100%;
+            height: 300px;
+        }
+
+        header {
+            margin-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: transparent;
+            filter: drop-shadow(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: #df3838;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        nav a {
+            font-size: 240%;
+            color: white;
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #df3838;
+            border-bottom: 3px solid #df3838;
+        }
+
+        @media(max-width:995px) {
+            nav {
+                position: absolute;
+                display: none;
+                top: 0;
+                right: 0;
+                width: 40%;
+                border-left: 3px solid #df3838;
+                border-bottom: 3px solid #df3838;
+                border-bottom-left-radius: 2rem;
+                padding: 1rem solid;
+                background-color: #161616;
+                border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav a {
+                display: block;
+                font-size: 2rem;
+                margin: 3rem 0;
+            }
+
+            nav a:hover,
+            nav a.active {
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border-bottom: 0.5rem solid #df3838;
+            }
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 5rem 9% 5rem;
+        }
+
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8rem;
+            background-color: black;
+        }
+
+        .home .home-content h1 {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        span {
+            color: #df3838;
+        }
+
+        .home-content h3 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .home-content p {
+            font-size: 1.6rem;
+        }
+
+        .home-img {
+            border-radius: 50%;
+        }
+
+        .home-img img {
+            position: relative;
+            height: 50vh;
+            width: auto;
+            box-shadow: 0 0 25px solid #df3838;
+            cursor: pointer;
+            transition: 0.2s linear;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        img {
+          transform: perspective(400px) rotateY(8deg);
+        }
+        img:hover {
+          transform: perspective(400px) rotateY(-8deg);
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 4rem;
+            height: 4rem;
+            background-color: transparent;
+            border: 0.2rem solid #df3838;
+            font-size: 2rem;
+            border-radius: 50%;
+            margin: 3rem 1.5rem 3rem 0;
+            transition: 0.3s ease;
+            color: #df3838;
+        }
+
+        .social-icons a:hover {
+            color: black;
+            transform: scale(1.3) translateY(-5px);
+            background-color: #df3838;
+            box-shadow: 0 0 25px #df3838;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background-color: black;
+            border-radius: 4rem;
+            font-size: 1.6rem;
+            color: #df3838;
+            letter-spacing: 0.3rem;
+            font-weight: 600;
+            border: 2px solid #df3838;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale3d(1.03);
+            background-color: #df3838;
+            color: black;
+            box-shadow: 0 0 25px #df3838;
+        }
+
+        .typing-text {
+            font-size: 34px;
+            font-weight: 600;
+            min-width: 280px;
+        }
+
+        .typing-text span {
+            position: relative;
+        }
+
+        .typing-text span::before {
+            content: "software Developer";
+            color: #df3838;
+            animation: words 20s infinite;
+        }
+
+        .typing-text span::after {
+            content: "";
+            background-color: black;
+            position: absolute;
+            width: calc(100% + 8px);
+            height: 100%;
+            border-left: 3px solid black;
+            right: -8;
+            animation: cursor 0.6s infinite;
+        }
+
+        @keyframes cursor {
+            to {
+                border-left: 3px solid #df3838;
+            }
+        }
+
+        @keyframes words {
+
+            0%,
+            20% {
+                content: "A Doctor";
+            }
+
+            21%,
+            40% {
+                content: "An Engineer";
+            }
+
+            41%,
+            60% {
+                content: "A Web Designer";
+            }
+
+            61%,
+            80% {
+                content: "A Software Developer";
+            }
+
+            81%,
+            100% {
+                content: "Whatever You Want";
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .home {
+                gap: 4rem;
+            }
+        }
+
+        @media(max-width:995px) {
+            .home {
+                flex-direction: column;
+                margin: 5rem 4rem;
+            }
+
+            .home .home-content h3 {
+                font-size: 2.5rem;
+            }
+
+            .home-content h1 {
+                font-size: 5rem;
+            }
+
+            .home-img img {
+                width: 70vw;
+                margin-top: 4rem;
+            }
+        }
+
+        #user-email {
+            position: absolute;
+            right: 60px;
+            top: 150%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        #user-email.no-email {
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            font-weight: 600;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            #user-email {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+        }
+
+        .benefits {
+      
+            background-color: #100e0e;
+            color: white;
+            text-align: center;
+            border-top: 3px solid #df3838;
+            border-bottom: 3px solid #df3838;
+        }
+
+        
+
+        .benefits h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #df3838;
+            text-transform: uppercase;
+        }
+
+        .benefit-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: center;
+        }
+
+        .benefit-box {
+            background-color: #1f1f1f;
+            border: 2px solid #df3838;
+            border-radius: 1rem;
+            padding: 2rem;
+            width: calc(25% - 2rem);
+            min-width: 250px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-box h3 {
+            text-align: left;
+            font-size: 300%;
+            margin-bottom: 1rem;
+            color: #df3838;
+        }
+
+        .benefit-box p {
+            text-align: left;
+            font-size: 200%;
+            line-height: 1.8;
+        }
+
+        .benefit-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #df3838;
+        }
+
+     
+
+            .benefit-box {
+                width: 80%;
+                
+            }
+        
+
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: transparent;
+            filter: drop-shadow(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        header.scrolled {
+            transform: translateY(-100%);
+            
+        }
+
+        
+        @media (max-width: 995px) {
+            nav a {
+                font-size: 1.5rem;
+            }
+        }
+
+        p {
+            font-size: 1050%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #161616;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 1.4rem;
+        }
+        .harsha {
+          
+            color: #fff;
+              text-decoration: none;
+              margin: 0 20px;
+              font-size: 240%;
+              font-family: 'Poppins', sans-serif;
+              font-weight: 600;
+              padding: 15px 25px; 
+              border-radius: 14px;
+              background-color: #5A5A5A;
+             margin-bottom: 10px;
+              transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            }
+        .harsha:hover {
+            background-color: #b22222;
+              color: #fff; 
+              transform: scale(1.2); 
+              box-shadow: 0 10px 30px rgba(178, 34, 34, 0.8); 
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon1.png') }}">
+</head>
+
+<body>
+      <!-- ===== HEADER FROM HOMEPAGE (EXACT COPY) ===== -->
+    <header id="header">
+        <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="Logo"
+            style="width: 290px; height: 160px; border-radius: 50%; margin-left: -160px;">
+
+        <a href="#" class="logo" style="font-size: 400%; margin-left: -80px;">My Next Move</a>
+
+        <nav>
+            <!-- The href links are unchanged, as requested -->
+            <a href="{{ url_for('home') }}" class="active">Home</a>
+            <a href="{{ url_for('ai') }}">CareerGuide AI</a>
+            <a href="https://harshacodes2209.github.io/jobspage/">Prepare Yourself</a>
+            <a href="{{ url_for('resume') }}">Your Resume</a>
+            <a href="{{ url_for('inspire') }}">Success Stories</a>
+            <a href="{{ url_for('feedback') }}">Feedbacks</a>
+            <a href="{{ url_for('index') }}" class="harsha">← Log Out</a>
+        </nav>
+    </header>
+
+    <section class="home">
+        <div class="home-img" style="margin-left: 130px;">
+            <img src="{{ url_for('static', filename='images/harsha.jpg') }}" alt="">
+        </div>
+        <div class="home-content">
+              <div>
+                  <h1>Welcome To <span>My Next Move</span></h1>
+                  <h3 class=" typing-text">You could be <span></span></h3>
+                  
+            <p style="font-size: 250%;">"My Next Move" is a career development and skill-building platform that helps
+                individuals explore career paths, enhance skills, and achieve professional goals. It offers tools like
+                skill assessments, career recommendations, curated courses, resume builders, and job search support,
+                providing a comprehensive approach to personal and professional growth.</p>
+        </div>
+        </div>
+
+
+    </section>
+    <section class="benefits">
+        <h2 style="font-size: 500%; font-family: Century Gothic;">Project Benefits</h2>
+        <div class="benefit-container">
+            <div class="benefit-box">
+                <h3>Personalized Insights</h3>
+                <p>Empowers users with personalized career insights, tailored resources, and practical guidance.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>Skill Acquisition</h3>
+                <p>Facilitates skill acquisition through carefully curated learning materials and interactive exercises.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>Enhanced Employability</h3>
+                <p>Enhances employability with professional tools like resume builders, job preparation, and interview tips.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>Networking Opportunities</h3>
+                <p>Creates valuable networking opportunities for career growth, mentorship, and industry collaboration.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>Career Guidance</h3>
+                <p>Provides expert career guidance through tailored advice and actionable steps for success.</p>
+            </div>
+
+        </div>
+        <br>
+        
+
+    </section>
+   
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.getElementById("header");
+            if (window.scrollY > 50) {  
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+
+        window.addEventListener('scroll', function () {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop) {
+                footer.style.display = 'none';
+            } else {
+                footer.style.display = 'block';
+            }
+
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+    </script>
+
+</body>
+
+</html>

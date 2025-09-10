@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #b74b4b, #f08484);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
+
+h1 {
+  font-family: "Century Gothic";
+  color: black;
+  font-size: 3em;
+  margin-bottom: 20px;
+  letter-spacing: 0.00em;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 1.1em;
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+p span {
+  background-color: #fff;
+  padding: 0 10px;
+  color: #b74b4b;
+}
+
+input,
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  font-size: 1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+button:focus {
+  border-color: #b74b4b;
+  box-shadow: 0 0 10px rgba(183, 75, 75, 0.4);
+}
+
+input {
+  background-color: #f9f9f9;
+}
+
+button {
+  background-color: #b74b4b;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.circle-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.login-container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+#sign-up {
+  background-color: #b74b4b;
+  color: white;
+  font-weight: 600;
+  font-size: 120%;
+}
+
+#submit {
+  background-color: #b74b4b;
+  color: white;
+  font-weight: 600;
+  font-size: 120%;
+}
+
+#create-acct-btn {
+  background-color: #b74b4b;
+  color: white;
+  font-weight: 600;
+  font-size: 140%;
+}
+
+#return-btn {
+  background: none;
+  color: #b74b4b;
+  text-decoration: underline;
+  border: none;
+  margin-top: 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  font-size: 140%;
+}
+
+#return-btn:hover {
+  color: #8c3a3a;
+}
+
+#sign-up {
+  border: none;
+}
+
+#create-acct {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 20px;
+    width: 80%;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+}
